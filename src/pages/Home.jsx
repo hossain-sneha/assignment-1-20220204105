@@ -6,6 +6,7 @@ export default function Home() {
   const [characters, setCharacters] = useState([]);
   const [info, setInfo] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
+
   const navigate = useNavigate();
   const page = parseInt(searchParams.get("page")) || 1;
   const name = searchParams.get("name") || "";
@@ -14,7 +15,8 @@ export default function Home() {
   useEffect(() => {
     const fetchCharacters = async () => {
       const query = new URLSearchParams({ page, name, status }).toString();
-      const res = await fetch(`https://rickandmortyapi.com/api/character?${query}`
+      const res = await fetch(
+        `https://rickandmortyapi.com/api/character?${query}`
       );
       if (res.ok) {
         const data = await res.json();
@@ -25,7 +27,6 @@ export default function Home() {
         setInfo({});
       }
     };
-
     fetchCharacters();
   }, [page, name, status]);
 
@@ -42,18 +43,17 @@ export default function Home() {
   const totalPages = Math.min(5, info.pages || 1);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-
   return (
     <main className="max-w-6xl mx-auto px-4">
-    <h1 className="text-3xl font-bold my-4">Rick & Morty Explorer</h1>
+      <h1 className="text-3xl font-bold my-4 text-center">Rick & Morty Explorer</h1>
 
-    <form onSubmit={handleSearch} className="flex flex-wrap gap-4 mb-6">
-      <input
-        type="text"
-        name="name"
-        placeholder="Search by name"
-        defaultValue={name}
-        className="border rounded p-2 flex-1"
+      <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 mb-6">
+        <input
+          type="text"
+          name="name"
+          placeholder="Search by name"
+          defaultValue={name}
+          className="border rounded p-2 flex-1"
         />
         <select
           name="status"
@@ -73,7 +73,7 @@ export default function Home() {
         </button>
       </form>
 
-      <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {characters.map((char) => (
           <CharacterCard key={char.id} character={char} />
         ))}
