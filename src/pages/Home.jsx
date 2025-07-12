@@ -73,7 +73,7 @@ export default function Home() {
         </button>
       </form>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="flex flex-col gap-6">
         {characters.map((char) => (
           <CharacterCard key={char.id} character={char} />
         ))}
