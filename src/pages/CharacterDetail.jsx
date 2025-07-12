@@ -13,6 +13,15 @@ export default function CharacterDetail() {
 
   if (!character) return <p>Loading...</p>;
 
+  <p>
+  <strong>Status:</strong> {character.status} <br />
+  <strong>Species:</strong> {character.species} <br />
+  <strong>Origin:</strong> {character.origin?.name} <br />
+  <strong>Location:</strong> {character.location?.name} <br />
+  <strong>Episode Count:</strong> {character.episode?.length}
+</p>
+
+
   return (
     <div className="container my-4">
       <h2>{character.name}</h2>
